@@ -2,6 +2,7 @@ package ng.farayolaj.xchrateboard.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import ng.farayolaj.xchrateboard.dto.RateDto;
 import ng.farayolaj.xchrateboard.model.Exchange;
 import ng.farayolaj.xchrateboard.model.LatestExchange;
 import ng.farayolaj.xchrateboard.model.ProviderSupportedCurrencyPairs;
@@ -11,6 +12,7 @@ import ng.farayolaj.xchrateboard.repository.ProviderSupportedCurrencyPairsReposi
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -36,5 +38,9 @@ public class RateService {
             var latestExchange = new LatestExchange(pairRef, rate, timestamp);
             latestExchangeRepository.save(latestExchange);
         }
+    }
+
+    public List<RateDto> getLatestRates() {
+        return latestExchangeRepository.findLatestRates();
     }
 }
